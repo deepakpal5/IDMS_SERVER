@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:IDMS:1.0:EventMessage",
+    "title": "EventMessage",
+    "type": "object",
+    "properties": {
+        "event_type": {
+            "type": "string",
+            "maxLength": 50
+        },
+        "event_code": {
+            "type": "string",
+            "maxLength": 50
+        },
+        "value": {
+            "type": "string",
+            "maxLength": 100
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "event_type",
+        "event_code",
+        "value"
+    ]
+}

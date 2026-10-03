@@ -1,0 +1,68 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:IDMS:1.0:TelemetryMessage",
+    "title": "TelemetryMessage",
+    "type": "object",
+    "properties": {
+        "Solar_Current": {
+            "type": "number"
+        },
+        "Input_VOLT": {
+            "type": "number"
+        },
+        "Input_FREQ": {
+            "type": "number"
+        },
+        "Output_VOLT": {
+            "type": "number"
+        },
+        "Output_FREQ": {
+            "type": "number"
+        },
+        "Batt_VOLT": {
+            "type": "number"
+        },
+        "Charge_CURR": {
+            "type": "number"
+        },
+        "Output_LOAD": {
+            "type": "number"
+        },
+        "PV_Available": {
+            "type": "boolean"
+        },
+        "PCU_Switch": {
+            "type": "boolean"
+        },
+        "Mains": {
+            "type": "string",
+            "enum": [
+                "ON",
+                "OFF",
+                "CUT"
+            ]
+        },
+        "Load_Source_on_Main": {
+            "type": "boolean"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "Solar_Current",
+        "Input_VOLT",
+        "Input_FREQ",
+        "Output_VOLT",
+        "Output_FREQ",
+        "Batt_VOLT",
+        "Charge_CURR",
+        "Output_LOAD",
+        "PV_Available",
+        "PCU_Switch",
+        "Mains",
+        "Load_Source_on_Main"
+    ]
+}

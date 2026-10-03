@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:IDMS:1.0:BootMessage",
+    "title": "BootMessage",
+    "type": "object",
+    "properties": {
+        "device_model": {
+            "type": "string",
+            "maxLength": 50
+        },
+        "fw_version": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "hw_version": {
+            "type": "string",
+            "maxLength": 20
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "device_model",
+        "fw_version",
+        "hw_version"
+    ]
+}

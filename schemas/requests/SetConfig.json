@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:IDMS:1.0:SetConfig",
+    "title": "SetConfig",
+    "type": "object",
+    "properties": {
+        "Battery_Type": {
+            "type": "string",
+            "enum": [
+                "Li-ion",
+                "TUBULAR",
+                "SMF"
+            ]
+        },
+        "Grid_Charging": {
+            "type": "boolean"
+        },
+        "UPS_Mode": {
+            "type": "boolean"
+        },
+        "Solar_Mode": {
+            "type": "boolean"
+        },
+        "Battery_Connect": {
+            "type": "boolean"
+        },
+        "SSID": {
+            "type": "string",
+            "maxLength": 64
+        },
+        "Password": {
+            "type": "string",
+            "maxLength": 64
+        },
+        "command": {
+            "type": "string",
+            "maxLength": 100
+        }
+    },
+    "additionalProperties": false
+}

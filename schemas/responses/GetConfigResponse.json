@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:IDMS:1.0:GetConfigResponse",
+    "title": "GetConfigResponse",
+    "type": "object",
+    "properties": {
+        "Battery_Type": {
+            "type": "string",
+            "enum": [
+                "Li-ion",
+                "TUBULAR",
+                "SMF",
+                "UNKNOWN"
+            ]
+        },
+        "Grid_Charging": {
+            "type": "boolean"
+        },
+        "UPS_Mode": {
+            "type": "boolean"
+        },
+        "Solar_Mode": {
+            "type": "boolean"
+        },
+        "Battery_Connect": {
+            "type": "boolean"
+        },
+        "PCU_Switch": {
+            "type": "boolean"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "Battery_Type",
+        "Grid_Charging",
+        "UPS_Mode",
+        "Solar_Mode",
+        "Battery_Connect",
+        "PCU_Switch",
+        "timestamp"
+    ]
+}

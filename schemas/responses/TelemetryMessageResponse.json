@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:IDMS:1.0:TelemetryMessageResponse",
+    "title": "TelemetryMessageResponse",
+    "type": "object",
+    "properties": {
+        "next_interval": {
+            "type": "integer",
+            "minimum": 1
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "next_interval"
+    ]
+}
