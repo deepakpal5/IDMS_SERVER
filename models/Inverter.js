@@ -57,6 +57,10 @@ const InverterSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    lastReason:{
+        type: String,
+        default: ""
+    },
     enabled: {
         type: Boolean,
         default: true

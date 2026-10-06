@@ -227,12 +227,13 @@ await Inverter.findOneAndUpdate(
     // Set Offline
     //------------------------------------------------
 
-   async setOffline(inverterPointId) {
+   async setOffline(inverterPointId, closeConnection) {
 
     await Inverter.updateOne(
         { inverterPointId },
         {
-            online: false
+            online: false,
+            lastReason: closeConnection,
         }
     );
 

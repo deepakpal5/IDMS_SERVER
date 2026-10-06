@@ -126,6 +126,11 @@ const IdmsPointId = request.IdmsPointId;
 
 
 inverterManager.register(IdmsPointId,ws);
+await InverterService.setOnline(
+
+    IdmsPointId
+
+);
 console.log(
 
     `✅ Authorized Charger  and Connected : ${IdmsPointId}`
@@ -162,11 +167,7 @@ console.log(
 
 );
 
-// await InverterService.setOnline(
 
-//     IdmsPointId
-
-// );
 
             }
 
@@ -174,7 +175,11 @@ console.log(
 
        ws.on("close", async () => {
 
-    console.log(`Disconnected : ${IdmsPointId}`);
+
+        const reasonStr = reason ? reason.toString() : "No reason provided";
+            
+         console.log(`Disconnected : ${IdmsPointId} | Code: ${code} | Reason: ${reasonStr}`);
+        const closeConnection = `${code}:${reasonStr}`;
 
     const inverter = inverterManager.getInverter(IdmsPointId);
 
@@ -194,7 +199,7 @@ console.log(
     );
 
     await InverterService.setOffline(
-        IdmsPointId
+        IdmsPointId,closeConnection
     );
 
 });
@@ -545,9 +550,10 @@ startOfflineChecker() {
         for (const [IdmsPointId, inverter] of inverterManager.inverters) {
 
             const diff = now - inverter.lastSeen;
+            const interval = inverter.telemetryInterval;
             // console.log(`Last Seen for ${IdmsPointId}: ${diff / 1000} seconds ago`);
 
-            if (diff >  90 * 1000) {
+            if (diff >  3*interval * 1000) {
 
                 console.log(`⚠ ${IdmsPointId} Offline Due to time out`);
 
