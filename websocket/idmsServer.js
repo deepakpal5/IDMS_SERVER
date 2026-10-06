@@ -173,7 +173,7 @@ console.log(
 
         );
 
-       ws.on("close", async () => {
+       ws.on("close", async (code , reason) => {
 
 
         const reasonStr = reason ? reason.toString() : "No reason provided";
