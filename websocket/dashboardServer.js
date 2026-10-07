@@ -50,6 +50,12 @@ class DashboardServer {
         // console.log(`action  ${action}`);
         // console.log(`payload  ${payload}`);
 
+        if (!inverterId &&  action === "SendSnapshot") {
+           dashboardService.sendSnapshot(ws,payload);
+            return;
+        }
+
+
 
 
 

@@ -1,9 +1,10 @@
+const mongoose = require("mongoose");
 const Inverter = require("../models/Inverter");
 const Telemetry = require("../models/Telemetry");
 const bootInverter = require("../models/boot");
 const Config = require("../models/Config");
 const EventInverter = require("../models/event");
-
+const User = require("../models/User");
 class DashboardService {
 
     constructor() {
@@ -21,12 +22,18 @@ class DashboardService {
         this.clients.add(ws);
 
         console.log("📊 Dashboard Connected");
+
+
+       
+
+
+await this.sendConnected(ws);
         await this.keepLatest500PerInverter(Telemetry);
         await this.keepLatest500PerInverter(EventInverter);
         await this.keepLatest500PerInverter(Config);
         await this.keepLatest500PerInverter(bootInverter);
 
-        await this.sendSnapshot(ws);
+        // await this.sendSnapshot(ws);
 
     }
 
@@ -44,7 +51,19 @@ class DashboardService {
 
 
 
+async sendConnected(ws){
+ ws.send(
 
+    JSON.stringify({
+
+        event: "connected",
+
+        data: {}
+
+    })
+
+);
+}
 
 
 
@@ -80,7 +99,30 @@ async  keepLatest500PerInverter(Model) {
     
     //------------------------------------------------
 
-    async sendSnapshot(ws) {
+    async sendSnapshot(ws,user) {
+
+let filter = {};
+
+if (user.role === "Super Admin") {
+
+    // See all inverters
+    filter = {};
+
+} else if (user.role === "Admin") {
+
+    // See all inverters
+    filter = {};
+
+} else if (user.role === "Supplier") {
+
+
+
+const users = await User.find({
+        role: "User",
+        lead: user.id
+    })
+            .select("-password")
+            .sort({ createdAt: -1 });
 
 
 
@@ -88,43 +130,82 @@ async  keepLatest500PerInverter(Model) {
 
 
 
+    // Supplier + Supplier's Users
+    const ownerIds = [
+        new mongoose.Types.ObjectId(user.id),
+        ...users.map(u => u._id)
+    ];
+
+ 
+
+    filter = {
+        owner: {
+            $in: ownerIds
+        }
+    };
+
+} else if (user.role === "User") {
+
+    filter = {
+        owner: new mongoose.Types.ObjectId(user.id)
+    };
+
+}
 
 
 
 
 
-
-
-const Boot = await bootInverter
-    .find({})
-    .sort({ createdAt: -1 })
-    .limit(500)
-    .lean();
-
-
-const configuration = await Config
-    .find({})
-    .sort({ createdAt: -1 })
-    .limit(500)
-    .lean();
 
 
 const inverters = await Inverter
-    .find({})
+    .find(filter)
     .sort({ inverterPointId: 1 })
     .lean();
 
 
 
 
+const inverterPointIds = inverters.map(
+    inverter => inverter.inverterPointId
+);
+filter = {
+         inverterPointId: {
+            $in: inverterPointIds
+        }
+    };
+
+
+
+
+
+const Boot = await bootInverter
+    .find(filter)
+    .sort({ createdAt: -1 })
+    .limit(500)
+    .lean();
+
+
+const configuration = await Config
+    .find(filter)
+    .sort({ createdAt: -1 })
+    .limit(500)
+    .lean();
+
+
+
+
+
+
+
 const telemetry = await Telemetry
-    .find({})
+    .find(filter)
     .sort({ createdAt: -1 })
     .limit(500)
     .lean();
 
 const event = await EventInverter
-    .find({})
+    .find(filter)
     .sort({ createdAt: -1 })
     .limit(500)
     .lean();

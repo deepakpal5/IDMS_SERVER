@@ -29,15 +29,37 @@ exports.getUsers = async (req, res) => {
         role: { $ne: "Super Admin" }
     };
 
-    } else if (req.user.role === "Supplier") {
+    }
+
+    else if (req.user.role === "Supplier") {
+
+        // Supplier can only see himself
+      filter = {
+                $or: [
+                    {
+                        _id: req.user.id
+                    },
+                    {
+                        lead: req.user.id
+                    }
+                ]
+            };
+
+    }
+    else if (req.user.role === "User") {
 
         // Supplier can only see himself
         filter = {
             role:"User",
-            lead: req.user.id.toString()
+            _id: req.user.id.toString()
         };
 
     }
+
+
+
+
+
 
 
 
