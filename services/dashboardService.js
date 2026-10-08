@@ -27,11 +27,11 @@ class DashboardService {
        
 
 
-await this.sendConnected(ws);
-        await this.keepLatest500PerInverter(Telemetry);
-        await this.keepLatest500PerInverter(EventInverter);
-        await this.keepLatest500PerInverter(Config);
-        await this.keepLatest500PerInverter(bootInverter);
+        await this.sendConnected(ws);
+        // await this.keepLatest500PerInverter(Telemetry);
+        // await this.keepLatest500PerInverter(EventInverter);
+        // await this.keepLatest500PerInverter(Config);
+        // await this.keepLatest500PerInverter(bootInverter);
 
         // await this.sendSnapshot(ws);
 

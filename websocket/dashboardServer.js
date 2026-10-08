@@ -46,9 +46,9 @@ class DashboardServer {
 
         } = packet;
 
-        // console.log(`inverterId  ${inverterId}`);
-        // console.log(`action  ${action}`);
-        // console.log(`payload  ${payload}`);
+        console.log(`inverterId  ${inverterId}`);
+        console.log(`action  ${action}`);
+        console.log(`payload  ${payload}`);
 
         if (!inverterId &&  action === "SendSnapshot") {
            dashboardService.sendSnapshot(ws,payload);
