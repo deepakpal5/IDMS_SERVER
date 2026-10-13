@@ -10,6 +10,7 @@ const pendingRequestManager = require("../services/pendingRequestManager");
 const inverterManager = require("../services/inverterManager");
 const schemaValidator = require("../services/schemaValidator");
 
+
 class IdmsServer {
 
  
@@ -125,7 +126,11 @@ async handleUpgrade(request, socket, head) {
 const IdmsPointId = request.IdmsPointId;
 
 
-inverterManager.register(IdmsPointId,ws);
+const inverter = await InverterService.isAllowed(IdmsPointId);
+
+
+
+inverterManager.register(IdmsPointId,ws,inverter.telemetryInterval);
 await InverterService.setOnline(
 
     IdmsPointId
@@ -551,7 +556,8 @@ startOfflineChecker() {
 
             const diff = now - inverter.lastSeen;
             const interval = inverter.telemetryInterval;
-            // console.log(`Last Seen for ${IdmsPointId}: ${diff / 1000} seconds ago`);
+            console.log(`Last Seen for ${IdmsPointId}: ${diff / 1000} seconds ago, Telemetry Interval: ${interval} seconds`);
+            const diffinterval = 3*interval * 1000;
 
             if (diff >  3*interval * 1000) {
 

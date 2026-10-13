@@ -256,7 +256,7 @@ configuration,
     //------------------------------------------------
 
     publish(event, data) {
-
+// console.log("📊 DashboardService.publish() called with event:", event, "data:", data);
         const packet = JSON.stringify({
 
             event,
@@ -268,7 +268,7 @@ configuration,
         this.clients.forEach(client => {
 
             if (client.readyState === 1) {
-
+// console.log("Data Published");
                 client.send(packet);
 
             }

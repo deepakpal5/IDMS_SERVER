@@ -10,11 +10,22 @@ class InverterManager {
 
     }
 
+
+
+
+
+setInterval(inverterPointId, interval) {
+
+    const inverter = this.inverters.get(inverterPointId);
+        this.inverters.set(inverterPointId, { ...inverter, telemetryInterval: interval });
+
+}
+
     //---------------------------------------------------
     // Register Inverter
     //---------------------------------------------------
 
-    register(inverterId, ws) {
+    register(inverterId, ws, telemetryInterval) {
 const existing = this.inverters.get(inverterId);
 
 
@@ -43,7 +54,7 @@ const existing = this.inverters.get(inverterId);
     connectedAt: new Date(),
 
     lastSeen: new Date(),
-
+    telemetryInterval: telemetryInterval,
     status: "Online"
 
         });

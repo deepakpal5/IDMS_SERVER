@@ -25,6 +25,8 @@ uniqueId
             payload,
 uniqueId
         );
+
+        // console.log("📊 TelemetryNotification.execute() called with context:", context);
     
 const inverter = await Inverter.findOne({
     inverterPointId: IdmsPointId

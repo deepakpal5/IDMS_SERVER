@@ -4,6 +4,7 @@ const inverterTelemetry = require("../models/Telemetry");
 const inverterEvent = require("../models/event");
 const inverterConfig = require("../models/Config");
 const dashboardService = require("./dashboardService");
+const inverterManager = require("./inverterManager");
 
 
 
@@ -89,6 +90,7 @@ async updateTelemetryInformation(inverterPointId, payload, uniqueId) {
         payload: payload,
         MSG_ID: uniqueId
     });
+    // console.log("📊inverteSrvice called ");
 dashboardService.publish("telemetryUpdated", inverter); 
 await Inverter.findOneAndUpdate(
         {inverterPointId },
@@ -154,6 +156,8 @@ dashboardService.publish("bootUpdated", inverter);
 
     ).lean();
 
+
+    
     dashboardService.publish("inverterUpdated", inverterNew);
 
 

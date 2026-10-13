@@ -46,9 +46,9 @@ class DashboardServer {
 
         } = packet;
 
-        console.log(`inverterId  ${inverterId}`);
-        console.log(`action  ${action}`);
-        console.log(`payload  ${payload}`);
+        // console.log(`inverterIhhhhhhhhd  ${inverterId}`);
+        // console.log(`action  ${action}`);
+        // console.log(`payload  ${payload}`);
 
         if (!inverterId &&  action === "SendSnapshot") {
            dashboardService.sendSnapshot(ws,payload);
@@ -62,6 +62,10 @@ class DashboardServer {
 
         if(action==="SET_INTERVAL"){
           await  invServ.updateInterval(inverterId,payload);
+
+
+
+          invertermgr.setInterval(inverterId, payload["interval"]);
           return;
         }
 
