@@ -556,10 +556,10 @@ startOfflineChecker() {
 
             const diff = now - inverter.lastSeen;
             const interval = inverter.telemetryInterval;
-            console.log(`Last Seen for ${IdmsPointId}: ${diff / 1000} seconds ago, Telemetry Interval: ${interval} seconds`);
+            // console.log(`Last Seen for ${IdmsPointId}: ${diff / 1000} seconds ago, Telemetry Interval: ${interval} seconds`);
             const diffinterval = 3*interval * 1000;
 
-            if (diff >  3*interval * 1000) {
+            if (diff >  diffinterval) {
 
                 console.log(`⚠ ${IdmsPointId} Offline Due to time out`);
 
