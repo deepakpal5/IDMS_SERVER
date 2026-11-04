@@ -27,12 +27,12 @@ class DashboardService {
        
 
 
+        
+        await this.keepLatest500PerInverter(Telemetry);
+        await this.keepLatest500PerInverter(EventInverter);
+        await this.keepLatest500PerInverter(Config);
+        await this.keepLatest500PerInverter(bootInverter);
         await this.sendConnected(ws);
-        // await this.keepLatest500PerInverter(Telemetry);
-        // await this.keepLatest500PerInverter(EventInverter);
-        // await this.keepLatest500PerInverter(Config);
-        // await this.keepLatest500PerInverter(bootInverter);
-
         // await this.sendSnapshot(ws);
 
     }
@@ -182,14 +182,14 @@ filter = {
 const Boot = await bootInverter
     .find(filter)
     .sort({ createdAt: -1 })
-    .limit(500)
+    // .limit(500)
     .lean();
 
 
 const configuration = await Config
     .find(filter)
     .sort({ createdAt: -1 })
-    .limit(500)
+    // .limit(500)
     .lean();
 
 
@@ -201,13 +201,13 @@ const configuration = await Config
 const telemetry = await Telemetry
     .find(filter)
     .sort({ createdAt: -1 })
-    .limit(500)
+    // .limit(500)
     .lean();
 
 const event = await EventInverter
     .find(filter)
     .sort({ createdAt: -1 })
-    .limit(500)
+    // .limit(500)
     .lean();
 
 ws.send(
